@@ -1,0 +1,9 @@
+{
+  "name": "funny-coding",
+  "version": "1.0.0",
+  "description": "Javascript Design Patterns",
+  "main": "index.js",
+  "scripts": {},
+  "author": "qgr",
+  "license": "MIT"
+}
