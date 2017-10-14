@@ -1,0 +1,1 @@
+## funny coding for javascript
