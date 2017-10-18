@@ -4,6 +4,7 @@
  * A: 使多个对象都有机会处理请求，从而避免请求的发送者和接收者之间的耦合关系。
  *    将这些对象连成一条链，并沿着这条链传递该请求，直到有一个对象处理它为止。
  * 应用场景:
+ * 1. 流程处理, 如钉钉上的审批处理
  */
 
 function ChainOfResponsibility(handler) {
@@ -20,36 +21,36 @@ var chainStart = new ChainOfResponsibility();
 chainStart.handleRequest = function (param) {
   // 初始化 ...
   console.log('start chain');
-  //this.nextHandler && this.nextHandler.handleRequest(param);
   this.nextHandler && ChainOfResponsibility.prototype.handleRequest.call(this, param);
 }
+
 var chainA = new ChainOfResponsibility();
 chainA.handleRequest = function (param){
   if(param == 1){
     console.log('handle a request');
   }
-  //this.nextHandler && this.nextHandler.handleRequest(param);
   this.nextHandler && ChainOfResponsibility.prototype.handleRequest.call(this, param);
 }
+
 var chainB = new ChainOfResponsibility();
 chainB.handleRequest = function (param){
   if(param == 2){
     console.log('handle b request');
   }
-  //this.nextHandler && this.nextHandler.handleRequest(param);
   this.nextHandler && ChainOfResponsibility.prototype.handleRequest.call(this, param);
 }
+
 var chainEnd = new ChainOfResponsibility();
 chainEnd.handleRequest = function (param) {
   // 职责链结束 ...
   console.log('end chain');
-  //this.nextHandler && this.nextHandler.handleRequest(param);
   this.nextHandler && ChainOfResponsibility.prototype.handleRequest.call(this, param);
 }
 
-//创建职责链条
+// 创建职责链条
 chainStart.setNextHandler(chainA);
 chainA.setNextHandler(chainB);
 chainB.setNextHandler(chainEnd);
 
+// run
 chainStart.handleRequest(1);
