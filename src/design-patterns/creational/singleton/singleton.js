@@ -1,5 +1,7 @@
 /**
  * 单例模式(Singleton Pattern)
+ * 保证一个类仅有一个实例
+ * 作用: 可共享访问,避免频繁地创建与销毁
  * 应用场景:
  * 1. 资源共享,如整个系统拥有一个全局对象(配置文件)
  * 2. 控制资源,方便资源之间的互相通信
@@ -13,8 +15,8 @@ var Singleton = (function () {
   var instance = null;
   function Construct() {
     this.name = 'Singleton Pattern'
-    this.method = function () {
-      console.log('execute method', this.name);
+    this.logger = function (info) {
+      console.log(this.name, info);
     }
   }
   return {
@@ -28,4 +30,4 @@ var Singleton = (function () {
 })()
 
 // run
-Singleton.getInstance().method();
+Singleton.getInstance().logger('printf log');
