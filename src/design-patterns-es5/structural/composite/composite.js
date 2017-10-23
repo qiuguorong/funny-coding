@@ -7,15 +7,31 @@
 
 // 假设场景
 // web页面中的菜单数据结构
-function MenuItem() {
-  this.name = '';
-  this.href = '';
+function MenuItem(name, href) {
+  this.name = name;
+  this.href = href;
   this.items = [];
 }
 MenuItem.prototype.addItem = function (item) {
   this.items.push(item);
 }
 MenuItem.prototype.removeItem = function (item) {
-  
+  // 省略实现
+}
+MenuItem.prototype.logItems = function () {
+  for (var i = 0; i < this.items.length; i++) {
+    console.log(this.items[i].name);
+    if(this.items[i].items.length > 0){
+      this.items[i].logItems();
+    }
+  }
 }
 
+var parent = new MenuItem('父节点', '#');
+var child1 = new MenuItem('子节点1', '#');
+var child2 = new MenuItem('子节点2', '#');
+var child3 = new MenuItem('子节点3', '#');
+parent.addItem(child1);
+parent.addItem(child2);
+child1.addItem(child3);
+parent.logItems();
