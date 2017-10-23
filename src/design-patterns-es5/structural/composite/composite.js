@@ -12,17 +12,19 @@ function MenuItem(name, href) {
   this.href = href;
   this.items = [];
 }
-MenuItem.prototype.addItem = function (item) {
-  this.items.push(item);
-}
-MenuItem.prototype.removeItem = function (item) {
-  // 省略实现
-}
-MenuItem.prototype.logItems = function () {
-  for (var i = 0; i < this.items.length; i++) {
-    console.log(this.items[i].name);
-    if(this.items[i].items.length > 0){
-      this.items[i].logItems();
+MenuItem.prototype = {
+  addItem: function (item) {
+    this.items.push(item);
+  },
+  removeItem: function (item) {
+    // 省略实现
+  },
+  logItems: function () {
+    for (var i = 0; i < this.items.length; i++) {
+      console.log(this.items[i].name);
+      if (this.items[i].items.length > 0) {
+        this.items[i].logItems();
+      }
     }
   }
 }
