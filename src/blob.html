@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>图片资源转Blob</title>
+</head>
+<body>
+  <script>
+    var xhr = new XMLHttpRequest();
+    window.URL = window.URL || window.wekitURL;
+    xhr.open("get", './assets/bxs-logo.jpeg', true);
+    xhr.responseType = "blob";
+    xhr.onload = function() {
+      if (this.status == 200) {
+        var blob = this.response;
+        // 大文件分割
+        console.log(blob.type);
+        // blob.slice || blob.webkitSlice || blob.mozSlice;
+        blob = blob.slice(0, blob.size/ 4);
+        var img = document.createElement("img");
+        img.onload = function(e) {
+          window.URL.revokeObjectURL(img.src); // 清除释放
+        };
+        img.src = window.URL.createObjectURL(blob);
+        document.body.appendChild(img);
+      }
+    }
+    xhr.send();
+  </script>
+</body>
+</html>
