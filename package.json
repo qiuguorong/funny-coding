@@ -3,7 +3,12 @@
   "version": "1.0.0",
   "description": "Javascript Design Patterns",
   "main": "index.js",
-  "scripts": {},
+  "scripts": {
+    "dev": "parcel src/basic/event.html -p 8082"
+  },
   "author": "qgr",
-  "license": "MIT"
+  "license": "MIT",
+  "devDependencies": {
+    "parcel-bundler": "^1.3.1"
+  }
 }

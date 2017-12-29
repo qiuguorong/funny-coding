@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="initial-scale=1">
+  <title>addEventListener事件</title>
+  <style>
+    .parents-node {
+      width: 200px;
+      height: 200px;
+      background: #83b81a;
+    }
+
+    .first-child-node {
+      width: 100px;
+      height: 100px;
+      background: #d2e7aa;
+    }
+
+    .second-child-node {
+      width: 50px;
+      height: 50px;
+      background: black;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="parents-node">
+    <div class="first-child-node">
+      <div class="second-child-node"></div>
+    </div>
+    <div class="first-child-node"></div>
+  </div>
+
+  <div>
+    <h3>capture: false 事件冒泡，执行顺序</h3>
+    <ul>
+      <li>second-child-node executed</li>
+      <li>first-child-node executed</li>
+      <li>parents-node executed</li>
+    </ul>
+  </div>
+  <div>
+    <h3>capture: true 事件捕获，执行顺序</h3>
+    <ul>
+      <li>parents-node executed</li>
+      <li>first-child-node executed</li>
+      <li>second-child-node executed</li>
+    </ul>
+  </div>
+  <div>
+    <h3>capture混用 事件捕获先执行，在执行事件冒泡</h3>
+    <ul>
+      <li>parents-node executed</li>
+      <li>second-child-node executed</li>
+      <li>first-child-node executed</li>
+    </ul>
+  </div>
+  <div>
+    <h3>passive，提升页面性能</h3>
+    <ul>
+      <li>passive：false event.defaultPrevented有效 </li>
+      <li>passive：true event.defaultPrevented无效</li>
+    </ul>
+  </div>
+</body>
+<script>
+  window.onload = () => {
+    // 检测是否支持passive属性
+    var passiveSupported = false;
+    try {
+      var options = Object.defineProperty({}, "passive", {
+        get: function () {
+          passiveSupported = true;
+        }
+      });
+
+      window.addEventListener("test", null, options);
+    } catch (err) { }
+
+    document.querySelector('.parents-node').addEventListener('click', function () {
+      console.log('parents-node executed');
+    }, {
+        capture: true,
+        once: false,
+        passive: false,
+      });
+    document.querySelector('.first-child-node').addEventListener('click', function () {
+      console.log('first-child-node executed');
+    }, false);
+    document.querySelector('.second-child-node').addEventListener('click', function () {
+      console.log('second-child-node executed');
+    }, false);
+  }
+</script>
+
+</html>
