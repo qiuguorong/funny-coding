@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="initial-scale=1">
+    <title>变量提升，函数提升</title>
+</head>
+
+<body>
+    <script>
+        window.onload = () => {
+            console.log(var1, typeof(func1), func2);
+            // 结果undefined，undefined, 打印出函数内容 
+            // 变量会提升
+            var var1 = 1;
+            var fuc1 = function() {
+                // 变量会提升，函数不会提升
+                console.log('func1');
+            }
+
+            function func2() {
+                // 函数会提升
+                console.log('func2');
+            }
+        }
+    </script>
+
+</html>

@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="initial-scale=1">
+    <title>闭包， 作用域， 垃圾回收， 内存泄露</title>
+    <style>
+
+    </style>
+</head>
+
+<body>
+</body>
+<script>
+    function completeAssign(target, ...sources) {
+        sources.forEach(source => {
+            let descriptors = Object.keys(source).reduce((descriptors, key) => {
+                descriptors[key] = Object.getOwnPropertyDescriptor(source, key);
+                return descriptors;
+            }, {});
+            console.log(descriptors);
+            // Object.assign 默认也会拷贝可枚举的Symbols
+            Object.getOwnPropertySymbols(source).forEach(sym => {
+                let descriptor = Object.getOwnPropertyDescriptor(source, sym);
+                if (descriptor.enumerable) {
+                    descriptors[sym] = descriptor;
+                }
+            });
+            Object.defineProperties(target, descriptors);
+        });
+        return target;
+    }
+    window.onload = () => {
+        var target = {};
+        var source = {
+            a: 1,
+            b: {
+                c: 2
+            },
+            d: Symbol("123")
+        }
+        console.log(Object('{a:1}'));
+        completeAssign(target, source);
+        console.log(target);
+    }
+</script>
+
+</html>

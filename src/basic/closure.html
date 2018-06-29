@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="initial-scale=1">
+  <title>闭包， 作用域， 垃圾回收， 内存泄露</title>
+  <style>
+    
+  </style>
+</head>
+
+<body>
+  <div>
+    <h3>闭包</h3>
+    <p>可以访问外部函数作用域中的变量</p>
+    <p>被内部函数访问的外部函数的变量可以保存在外部函数作用域内不被GC回收</p>
+  </div>
+  <div>
+    <h3>作用域、作用域链（执行环境，活动对象）</h3>
+    <p></p>
+  </div>
+  <div>
+    <h3>垃圾回收机制</h3>
+    <p>标记清除</p>
+    <p>引用计数</p>
+  </div>
+  <div>
+    <h3>内存泄露</h3>
+    <p></p>
+  </div>
+  <div>
+    <h3>Chrome Performance</h3>
+    <p></p>
+  </div>
+  <div>
+    <h3>Chrome Memory</h3>
+    <p></p>
+  </div>
+</body>
+<script>
+  window.onload = () => {
+    // 闭包1
+    var foo = function(){
+      var name = 'closure';
+      return function(){
+        console.log(name);
+      }
+    }
+    var bar = foo();
+    bar();
+  }
+</script>
+
+</html>
